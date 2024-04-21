@@ -1,10 +1,17 @@
 group 'com.example.imagegallerysaver'
 version '1.0-SNAPSHOT'
 
-plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
+buildscript {
+    ext.kotlin_version = '1.7.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
 rootProject.allprojects {
@@ -13,6 +20,10 @@ rootProject.allprojects {
         mavenCentral()
     }
 }
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
 
 android {
     if (project.android.hasProperty("namespace")) {
@@ -28,11 +39,12 @@ android {
     }
     defaultConfig {
         minSdkVersion 21
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'
     }
 }
 
-dependencies {}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
